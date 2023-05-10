@@ -25,14 +25,10 @@ namespace apiappVK.Controllers
     public class UserController : Controller
     {
         private readonly IUserService _userService;
-        private readonly ILogger<UserController> _logger;
-        private readonly ApplicationDbContext _db;
 
-        public UserController(IUserService userService, ILogger<UserController> logger, ApplicationDbContext db)
+        public UserController(IUserService userService)
         {
             _userService = userService;
-            _logger = logger;
-            _db = db;
         }
 
 
@@ -42,7 +38,6 @@ namespace apiappVK.Controllers
             return await _userService.GetUser(id);
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpGet, Route("GetUsers")]
         public async Task<List<string>> GetUsers(int pageNumber = 0, int pageSize = 10)
         {
